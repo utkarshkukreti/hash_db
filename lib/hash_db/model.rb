@@ -1,7 +1,10 @@
 module HashDB
   module Model
+    attr_accessor :id
+
     def self.included(klass)
       klass.extend ClassMethods
+      klass.all = []
     end
 
     def initialize(args = {})
@@ -15,7 +18,20 @@ module HashDB
       end
     end
 
+    def save
+      if @id.nil?
+        @id = if self.class.all.any?
+                self.class.all.last.id + 1
+              else
+                1
+              end
+      end
+      self.class.all[@id - 1] = self
+    end
+
     module ClassMethods
+      attr_accessor :all
+
       def keys(*keys)
         keys.each do |key|
           define_method "#{key}" do

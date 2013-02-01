@@ -39,4 +39,21 @@ describe HashDB::Model do
       expect { model.new invalid: 1 }.to raise_exception HashDB::InvalidKeyError
     end
   end
+
+  context "#save" do
+    it "should assign id to models after they are saved" do
+      m1 = model.new.save
+      m1.id.should eq 1
+      m2 = model.new
+      m3 = model.new.save
+      m3.id.should eq 2
+    end
+
+    it "should save model into Class.all" do
+      m1 = model.new
+      m2 = model.new.save
+      m3 = model.new.save
+      model.all.should eq [m2, m3]
+    end
+  end
 end
