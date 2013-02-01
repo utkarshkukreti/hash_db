@@ -68,7 +68,7 @@ describe HashDB::Model do
   end
 
   context "#where" do
-    it "should filter by key = value" do
+    it "should filter by key(s) = value(s)" do
       model.keys :integer, :string
 
       m1 = model.create integer: 4, string: "a"
