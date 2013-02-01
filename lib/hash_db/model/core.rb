@@ -1,10 +1,11 @@
 module HashDB
   module Model
-    attr_accessor :id, :attributes
+    attr_accessor :attributes
 
     def self.included(klass)
       klass.extend ClassMethods
       klass.all = {}
+      klass.keys :id
     end
 
     def initialize(args = {})
@@ -19,18 +20,18 @@ module HashDB
     end
 
     def save
-      if @id.nil?
-        @id = if self.class.all.any?
+      if id.nil?
+        self.id = if self.class.all.any?
                 self.class.all.keys.last + 1
               else
                 1
               end
       end
-      self.class.all[@id] = self
+      self.class.all[id] = self
     end
 
     def destroy
-      self.class.all.delete @id
+      self.class.all.delete id
     end
 
     module ClassMethods
