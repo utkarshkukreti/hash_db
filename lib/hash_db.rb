@@ -1,5 +1,5 @@
 require "hash_db/version"
 
-module HashDb
+module HashDB
   # Your code goes here...
 end

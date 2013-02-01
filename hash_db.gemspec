@@ -5,7 +5,7 @@ require 'hash_db/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "hash_db"
-  gem.version       = HashDb::VERSION
+  gem.version       = HashDB::VERSION
   gem.authors       = ["Utkarsh Kukreti"]
   gem.email         = ["utkarshkukreti@gmail.com"]
   gem.description   = %q{TODO: Write a gem description}

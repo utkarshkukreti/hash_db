@@ -1,4 +1,4 @@
-# HashDb
+# HashDB
 
 TODO: Write a gem description
 
