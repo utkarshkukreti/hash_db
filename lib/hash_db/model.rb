@@ -4,7 +4,7 @@ module HashDB
 
     def self.included(klass)
       klass.extend ClassMethods
-      klass.all = []
+      klass.all = {}
     end
 
     def initialize(args = {})
@@ -21,12 +21,12 @@ module HashDB
     def save
       if @id.nil?
         @id = if self.class.all.any?
-                self.class.all.last.id + 1
+                self.class.all.keys.last + 1
               else
                 1
               end
       end
-      self.class.all[@id - 1] = self
+      self.class.all[@id] = self
     end
 
     module ClassMethods

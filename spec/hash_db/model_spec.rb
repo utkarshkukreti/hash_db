@@ -53,7 +53,7 @@ describe HashDB::Model do
       m1 = model.new
       m2 = model.new.save
       m3 = model.new.save
-      model.all.should eq [m2, m3]
+      model.all.should eq({ 1 => m2, 2 => m3 })
     end
   end
 end
