@@ -43,6 +43,12 @@ module HashDB
           end
         end
       end
+
+      def create(args = {})
+        new(args).tap do |object|
+          object.save
+        end
+      end
     end
   end
 end

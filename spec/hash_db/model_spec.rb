@@ -40,6 +40,16 @@ describe HashDB::Model do
     end
   end
 
+  context ".create" do
+    it "should instantiate and save object" do
+      model.keys :integer
+      m1 = model.create
+      m2 = model.create integer: 10
+      model.all.should eq({1 => m1, 2 => m2})
+      m2.integer.should eq 10
+    end
+  end
+
   context "#save" do
     it "should assign id to models after they are saved" do
       m1 = model.new.save
