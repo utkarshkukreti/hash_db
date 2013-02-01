@@ -1,6 +1,6 @@
 module HashDB
   module Model
-    attr_accessor :id
+    attr_accessor :id, :attributes
 
     def self.included(klass)
       klass.extend ClassMethods
@@ -47,6 +47,15 @@ module HashDB
       def create(args = {})
         new(args).tap do |object|
           object.save
+        end
+      end
+
+      def where(args = {})
+        @all.values.select do |object|
+          args.all? do |key, value|
+            # TODO: Should access through the getter?
+            object.attributes[key] == value
+          end
         end
       end
     end

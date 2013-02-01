@@ -66,4 +66,20 @@ describe HashDB::Model do
       model.all.should eq({ 1 => m2, 2 => m3 })
     end
   end
+
+  context "#where" do
+    it "should filter by key = value" do
+      model.keys :integer, :string
+
+      m1 = model.create integer: 4, string: "a"
+      m2 = model.create integer: 4, string: "b"
+      m3 = model.create string: "c"
+      m4 = model.create string: "b"
+
+      model.where(integer: 4).should eq [m1, m2]
+      model.where(string: "b").should eq [m2, m4]
+      model.where(string: "d").should eq []
+      model.where(integer: 4, string: "b").should eq [m2]
+    end
+  end
 end
