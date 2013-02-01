@@ -26,4 +26,17 @@ describe HashDB::Model do
       m1.object.should eq m1
     end
   end
+
+  context ".new" do
+    it "should assign passed args into keys" do
+      model.keys :integer, :string
+      m1 = model.new integer: 1, string: "test"
+      m1.integer.should eq 1
+      m1.string.should eq "test"
+    end
+
+    it "should raise ArgumentError if an invalid key is passed" do
+      expect { model.new invalid: 1 }.to raise_exception HashDB::InvalidKeyError
+    end
+  end
 end
