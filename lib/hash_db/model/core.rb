@@ -29,6 +29,10 @@ module HashDB
       self.class.all[@id] = self
     end
 
+    def destroy
+      self.class.all.delete @id
+    end
+
     module ClassMethods
       attr_accessor :all
 

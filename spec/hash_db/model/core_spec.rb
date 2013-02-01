@@ -66,4 +66,15 @@ describe HashDB::Model do
       model.all.should eq({ 1 => m2, 2 => m3 })
     end
   end
+
+  context "#destroy" do
+    it "should remove object from model.all" do
+      m1 = model.create
+      m2 = model.create
+      m1.destroy
+      model.all.should eq({ 2 => m2 })
+      m2.destroy
+      model.all.should be_empty
+    end
+  end
 end
