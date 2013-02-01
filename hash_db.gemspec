@@ -8,8 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = HashDB::VERSION
   gem.authors       = ["Utkarsh Kukreti"]
   gem.email         = ["utkarshkukreti@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = "A minimal, in-memory, ActiveRecord like database, " +
+                      "backed by a Ruby Hash."
+  gem.summary       = gem.description
   gem.homepage      = ""
   gem.license       = "MIT"
 
