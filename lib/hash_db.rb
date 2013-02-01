@@ -1,4 +1,5 @@
-require "hash_db/model"
+require "hash_db/model/core"
+require "hash_db/model/query"
 
 require "hash_db/version"
 
