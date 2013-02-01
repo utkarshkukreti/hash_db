@@ -69,13 +69,9 @@ module HashDB
         end
       end
 
-      def find_by(args = {})
-        @all.values.find do |object|
-          args.all? do |key, value|
-            # TODO: Should access through the getter?
-            object.attributes[key] == value
-          end
-        end
+      def find_by(*args)
+        # Not efficient, and I know it.
+        where(*args).first
       end
     end
   end
