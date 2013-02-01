@@ -58,6 +58,15 @@ module HashDB
           end
         end
       end
+
+      def find_by(args = {})
+        @all.values.find do |object|
+          args.all? do |key, value|
+            # TODO: Should access through the getter?
+            object.attributes[key] == value
+          end
+        end
+      end
     end
   end
 end

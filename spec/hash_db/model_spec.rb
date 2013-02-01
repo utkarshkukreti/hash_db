@@ -82,4 +82,20 @@ describe HashDB::Model do
       model.where(integer: 4, string: "b").should eq [m2]
     end
   end
+
+  context "#find_by" do
+    it "should fetch first object matching by key(s) = value(s) passed" do
+      model.keys :integer, :string
+
+      m1 = model.create integer: 4, string: "a"
+      m2 = model.create integer: 4, string: "b"
+      m3 = model.create string: "c"
+      m4 = model.create string: "b"
+
+      model.find_by(integer: 4).should eq m1
+      model.find_by(string: "b").should eq m2
+      model.find_by(string: "d").should eq nil
+      model.find_by(integer: 4, string: "b").should eq m2
+    end
+  end
 end
