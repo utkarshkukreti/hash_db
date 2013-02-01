@@ -67,7 +67,7 @@ describe HashDB::Model do
     end
   end
 
-  context "#where" do
+  context ".where" do
     it "should filter by key(s) = value(s)" do
       model.keys :integer, :string
 
@@ -83,7 +83,7 @@ describe HashDB::Model do
     end
   end
 
-  context "#find_by" do
+  context ".find_by" do
     it "should fetch first object matching by key(s) = value(s) passed" do
       model.keys :integer, :string
 
