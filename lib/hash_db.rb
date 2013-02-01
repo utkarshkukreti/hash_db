@@ -1,5 +1,3 @@
-require "hash_db/version"
+require "hash_db/model"
 
-module HashDB
-  # Your code goes here...
-end
+require "hash_db/version"
