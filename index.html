@@ -27,7 +27,8 @@
         </ul>
       </header>
       <section>
-        <h1>HashDB</h1>
+        <h1>HashDB <a href="https://travis-ci.org/utkarshkukreti/hash_db"><img src="https://travis-ci.org/utkarshkukreti/hash_db.png" alt="Build Status"></a>
+</h1>
 
 <p>HashDB is a minimal, in-memory, ActiveRecord like database library,
 backed by a Ruby Hash.</p>
@@ -53,6 +54,27 @@ the git repository.</p>
 $ cd hash_db
 $ bundle install
 $ rake install
+</code></pre>
+
+<h2>Quickstart</h2>
+
+<p>(Complete usage instructions are below.)</p>
+
+<pre><code>require 'hash_db'
+
+class Score
+  include HashDB::Model
+  keys :name, :points
+end
+
+score = Score.new name: "A", points: 10
+score.save #= score.id == 1
+Score.create name: "B", points: 11 #= id == 2
+Score.create name: "C", points: 6 #= id == 3
+
+Score.where(name: "B", points: 11).count #= 1
+Score.where([:points, :&gt;, 4], [:name, :=~, /a|b/i]).count #= 2
+Score.find_by(:points, :&gt;, 8).id #= 1
 </code></pre>
 
 <h2>Usage</h2>
@@ -112,7 +134,7 @@ Post.all.count == 2 #= true
 <p>HashDB currently has just 2 query methods, <code>.where</code>, which can filter objects
 using key(s) = value(s), and also using custom method call, like <code>:&lt;</code> and <code>:&gt;</code>.</p>
 
-<p>Let's <a href="http://news.ycombinator.com">HN</a> as an example. :)</p>
+<p>Let's take <a href="http://news.ycombinator.com">HN</a> as an example. :)</p>
 
 <pre><code>class Item
   include HashDB::Model
