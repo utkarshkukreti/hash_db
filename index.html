@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Hash DB by utkarshkukreti</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Hash DB</h1>
+        <h2>HashDB is a minimal, in-memory, ActiveRecord like database library, backed by a Ruby Hash.</h2>
+        <a href="https://github.com/utkarshkukreti/hash_db" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>HashDB</h1>
+
+<p>HashDB is a minimal, in-memory, ActiveRecord like database library,
+backed by a Ruby Hash.</p>
+
+<h2>Installation</h2>
+
+<p>Gem releases are not done frequently as of now. I recommend installing through
+the git repository.</p>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'hash_db', git: "https://github.com/utkarshkukreti/hash_db.git"
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ git clone https://github.com/utkarshkukreti/hash_db.git
+$ cd hash_db
+$ bundle install
+$ rake install
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>First, require HashDB.</p>
+
+<pre><code>require 'hash_db'
+</code></pre>
+
+<p>To make your class a HashDB model, just include <code>HashDB::Model</code> module in
+your class.</p>
+
+<pre><code>class Post
+  include HashDB::Model
+end
+</code></pre>
+
+<p>Defining attributes is as easy as calling <code>keys</code>, with the key names you want.</p>
+
+<pre><code>  keys :title, :content
+</code></pre>
+
+<p>HashDB will automatically create getters and setters for these keys, so you can
+now assign <code>title</code> and <code>content</code> to objects of the Post class.</p>
+
+<pre><code>post = Post.new
+post.title = "Introducing HashDB"
+post.content = "..."
+</code></pre>
+
+<p>Just as with ActiveRecord, you can also pass a Hash with key/value pairs to .new</p>
+
+<pre><code># Same as above
+post = Post.new title: "Introducing HashDB", content: "..."
+</code></pre>
+
+<p>To be able to query the model, objects must be saved, using <code>.save</code>.</p>
+
+<pre><code>post.save
+</code></pre>
+
+<p>This saves the object into Class.all Hash, with auto generated <code>id</code> key as the
+key, and object as the value.</p>
+
+<pre><code>Post.all == { 1 =&gt; post } #= true
+</code></pre>
+
+<p>Like ActiveRecord, <code>.new</code> and <code>.save</code> can be combined into just a <code>.create</code> call
+on the class.</p>
+
+<pre><code>Post.create title: "Second Post"
+Post.all.count == 2 #= true
+</code></pre>
+
+<h2>Querying</h2>
+
+<p>HashDB currently has just 2 query methods, <code>.where</code>, which can filter objects
+using key(s) = value(s), and also using custom method call, like <code>:&lt;</code> and <code>:&gt;</code>.</p>
+
+<p>Let's <a href="http://news.ycombinator.com">HN</a> as an example. :)</p>
+
+<pre><code>class Item
+  include HashDB::Model
+  keys :url, :title, :points, :comment_count
+end
+
+Item.create url: "http://blog.heroku.com/archives/2011/7/12/matz_joins_heroku/",
+            title: "Matz (creator of Ruby) joins Heroku",
+            points: 569,
+            comment_count: 79
+Item.create url: "http://www.rubymotion.com/",
+            title: "RubyMotion - Ruby for iOS",
+            points: 466,
+            comment_count: 248
+Item.create url: "http://repl.it/",
+            title: "Try Python, Ruby, Lua, Scheme, QBasic, Forth...",
+            points: 379,
+            comment_count: 80
+</code></pre>
+
+<p>You can query by key = value</p>
+
+<pre><code>Item.where(points: 569).count #= 1
+</code></pre>
+
+<p>by key = value pairs</p>
+
+<pre><code>Item.where(points: 569, comment_count: 79).count #= 1
+</code></pre>
+
+<p>by custom method call</p>
+
+<pre><code>Item.where(:points, :&gt;, 400).count #= 2
+</code></pre>
+
+<p>and by custom method call pairs</p>
+
+<pre><code>Item.where([:points, :&gt;, 400], [:title, :=~, /ios/i]).count #= 1
+</code></pre>
+
+<h2>Associations</h2>
+
+<p>TODO: Add Documentation</p>
+
+<h2>License</h2>
+
+<p>MIT License. (c) 2013 Utkarsh Kukreti.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/utkarshkukreti/hash_db/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/utkarshkukreti/hash_db/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/utkarshkukreti/hash_db"></a> is maintained by <a href="https://github.com/utkarshkukreti">utkarshkukreti</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
