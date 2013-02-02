@@ -23,6 +23,26 @@ Or install it yourself as:
     $ bundle install
     $ rake install
 
+## Quickstart
+
+(Complete usage instructions are below.)
+
+    require 'hash_db'
+
+    class Score
+      include HashDB::Model
+      keys :name, :points
+    end
+
+    score = Score.new name: "A", points: 10
+    score.save #= score.id == 1
+    Score.create name: "B", points: 11 #= id == 2
+    Score.create name: "C", points: 6 #= id == 3
+
+    Score.where(name: "B", points: 11).count #= 1
+    Score.where([:points, :>, 4], [:name, :=~, /a|b/i]).count #= 2
+    Score.find_by(:points, :>, 8).id #= 1
+
 ## Usage
 
 First, require HashDB.
