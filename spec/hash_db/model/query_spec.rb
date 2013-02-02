@@ -50,5 +50,11 @@ describe HashDB::Model do
       model.find("A").should eq :works
     end
   end
+
+  context ".[]" do
+    it "should be an alias to .find" do
+      model.method(:[]).should eq model.method(:find)
+    end
+  end
 end
 

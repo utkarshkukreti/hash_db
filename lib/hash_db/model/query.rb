@@ -28,6 +28,7 @@ module HashDB
       def find(value)
         find_by @primary_key => value
       end
+      alias_method :[], :find
     end
   end
 end
