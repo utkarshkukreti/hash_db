@@ -27,6 +27,17 @@ describe HashDB::Model do
     end
   end
 
+  context ".primary_key" do
+    it "should have :id as primary key by default" do
+      model.primary_key.should eq :id
+    end
+
+    it "should save primary key" do
+      model.primary_key :name
+      model.primary_key.should eq :name
+    end
+  end
+
   context ".new" do
     it "should assign passed args into keys" do
       model.keys :integer, :string

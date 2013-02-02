@@ -42,5 +42,13 @@ describe HashDB::Model do
       model.find_by(:integer, :<, 10).should eq nil
     end
   end
+
+  context ".find" do
+    it "should delegate to find_by with key = model.primary_key" do
+      model.should_receive(:find_by).with(name: "A").and_return(:works)
+      model.primary_key :name
+      model.find("A").should eq :works
+    end
+  end
 end
 

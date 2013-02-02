@@ -6,6 +6,7 @@ module HashDB
       klass.extend ClassMethods
       klass.all = {}
       klass.keys :id
+      klass.primary_key :id
     end
 
     def initialize(args = {})
@@ -52,6 +53,14 @@ module HashDB
       def create(args = {})
         new(args).tap do |object|
           object.save
+        end
+      end
+
+      def primary_key(key = nil)
+        if key
+          @primary_key = key
+        else
+          @primary_key
         end
       end
     end

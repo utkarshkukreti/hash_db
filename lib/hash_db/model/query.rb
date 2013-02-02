@@ -24,6 +24,10 @@ module HashDB
         # Not efficient, and I know it.
         where(*args).first
       end
+
+      def find(value)
+        find_by @primary_key => value
+      end
     end
   end
 end
