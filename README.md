@@ -1,4 +1,4 @@
-# HashDB
+# HashDB [![Build Status](https://travis-ci.org/utkarshkukreti/hash_db.png)](https://travis-ci.org/utkarshkukreti/hash_db)
 
 HashDB is a minimal, in-memory, ActiveRecord like database library,
 backed by a Ruby Hash.
