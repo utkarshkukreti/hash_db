@@ -92,7 +92,7 @@ on the class.
 HashDB currently has just 2 query methods, `.where`, which can filter objects
 using key(s) = value(s), and also using custom method call, like `:<` and `:>`.
 
-Let's [HN](http://news.ycombinator.com) as an example. :)
+Let's take [HN](http://news.ycombinator.com) as an example. :)
 
     class Item
       include HashDB::Model
