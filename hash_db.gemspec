@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = "A minimal, in-memory, ActiveRecord like database, " +
                       "backed by a Ruby Hash."
   gem.summary       = gem.description
-  gem.homepage      = ""
+  gem.homepage      = "http://utkarshkukreti.github.com/hash_db"
   gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
