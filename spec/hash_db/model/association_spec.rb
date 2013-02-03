@@ -30,6 +30,21 @@ describe HashDB::Model do
       u2.posts << p1
       p1.user_id.should eq u2.id
     end
+
+    it "should initialize related modules with .new" do
+      u1 = user.create
+      p1 = u1.posts.new
+
+      p1.user_id.should eq u1.id
+    end
+
+    it "should create related model with .create" do
+      u1 = user.create
+      p1 = u1.posts.create
+
+      p1.user_id.should eq u1.id
+      p1.id.should_not be_nil
+    end
   end
 
   context ".belongs_to" do

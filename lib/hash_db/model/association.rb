@@ -16,6 +16,12 @@ module HashDB
                 super object
               end
 
+              array.define_singleton_method :new do |*args|
+                klass.new(*args).tap do |object|
+                  array << object
+                end
+              end
+
               array.define_singleton_method :create do |*args|
                 klass.create(*args).tap do |object|
                   array << object
