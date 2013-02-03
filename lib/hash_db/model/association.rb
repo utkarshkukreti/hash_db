@@ -8,8 +8,8 @@ module HashDB
         klass.keys foreign_key
 
         define_method "#{name}" do
-          base_id = id
           @attributes[name] ||= begin
+            base_id = id
             [].tap do |array|
               array.define_singleton_method :<< do |object|
                 object.send("#{foreign_key}=", base_id)
