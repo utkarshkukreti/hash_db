@@ -48,16 +48,22 @@ describe HashDB::Model do
   end
 
   context ".belongs_to" do
+    let :user do
+      Class.new do
+        include HashDB::Model
+      end
+    end
+
+    let :post do
+      # Same hack as mentioned above.
+      _user = user
+      Class.new do
+        include HashDB::Model
+        belongs_to :user, key: :user_id, class: _user
+      end
+    end
+
     it "should allow assigning and retrieving objects" do
-      user = Class.new do
-        include HashDB::Model
-      end
-
-      post = Class.new do
-        include HashDB::Model
-        belongs_to :user, key: :user_id, class: user
-      end
-
       u1 = user.create
       u2 = user.create
       p1 = post.create
